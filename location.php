@@ -1,5 +1,6 @@
 <?php 
 include_once("connection.php");
+include_once("secret.php");
 session_start(); 
 
 ?>
@@ -70,7 +71,8 @@ session_start();
 		}
     </script>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBM8AYhI4VezIoTIRX9AHEszZqyyuuoT4g&callback=initMap">
+
+    src="https://maps.googleapis.com/maps/api/js?key=<?php echo $secret?>&callback=initMap">
     </script>
 
    <form action="location.php" method="POST">
