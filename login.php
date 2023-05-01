@@ -11,6 +11,8 @@ include("connection.php");
     echo '<script>alert("Fields cant be empty")</script>';
   }
 
+  $password = hash("sha1",$password);
+
 	$query = mysqli_query($conn,"Select * from login where email = '$email' and password = '$password'")  ;
 
 	$result = mysqli_fetch_array($query);

@@ -92,7 +92,7 @@ if( $_SESSION['name']== ""){
       echo "<hr>";
   }
 
-    mysqli_close($conn);
+    
   
   ?>
   
@@ -119,15 +119,9 @@ if (navigator.geolocation) {
 	navigator.geolocation.getCurrentPosition(myFunction);
 }
 
-
-
-
-
 </script> 
 
-<?php 
 
-?>
   </body>
 
 </html>
