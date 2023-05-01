@@ -5,6 +5,7 @@ include("connection.php");
   $lastname = $_POST['lastname'];
 	$email = $_POST['email'];
   $password = $_POST['password'];
+  $telephone = $_POST['telephone'];
   $address = $_POST['address'];
   $address2 = $_POST['address2'];
   $city = $_POST['city'];
@@ -14,7 +15,7 @@ include("connection.php");
 	
 $password = hash("sha1",$password);
 
-	$query = "INSERT INTO login(userId,FirstName,LastName,email,password,address,address2,city,postcode) VALUES ('$userid','$firstname','$lastname', '$email','$password','$address','$address2', '$city', '$postcode')";
+	$query = "INSERT INTO login(userId,FirstName,LastName,email,password,phone_numb,address,address2,city,postcode) VALUES ('$userid','$firstname','$lastname', '$email','$password','$telephone','$address','$address2', '$city', '$postcode')";
 	
 	$result = mysqli_query($conn, $query);
 

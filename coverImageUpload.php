@@ -1,19 +1,16 @@
-<?php
-include_once("connection.php");
-session_start(); 
-//$picturename = $_POST['picturename'];
+<?php 
 
 
-if ($_FILES["mypicture"]["size"] < 20000000){
-	if ($_FILES["mypicture"]["error"] > 0){
-		echo "Error: " . $_FILES["mypicture"]["error"] . "<br />";
+if ($_FILES["coverpicture"]["size"] < 20000000){
+	if ($_FILES["coverpicture"]["error"] > 0){
+		echo "Error: " . $_FILES["coverpicture"]["error"] . "<br />";
 		echo "<script> alert('No image selected')</script>";
 		echo '<script> window.location.replace("editProfile.php")</script>';
 		
 	}else{
-	    $picturename = $_FILES["mypicture"]["name"];
-		$filename = $_FILES["mypicture"]["name"];
-		$filetype = $_FILES["mypicture"]["type"];
+	    $picturename = $_FILES["coverpicture"]["name"];
+		$filename = $_FILES["coverpicture"]["name"];
+		$filetype = $_FILES["coverpicture"]["type"];
         $id = $_SESSION['id'];
 		
 		$uploaddir = "uploads/";
@@ -38,17 +35,17 @@ if ($_FILES["mypicture"]["size"] < 20000000){
 		}
 		
 		//move the file to the images folder
-		move_uploaded_file($_FILES["mypicture"]["tmp_name"], $uploaddir . $filename);
+		move_uploaded_file($_FILES["coverpicture"]["tmp_name"], $uploaddir . $filename);
 		
 		if($renamed){
 			echo "File already exists.  Renaming uploaded file to $filename<br>";
 		}
         
-		$sql = "update login set profile_pic = '$filename' where userid = '$id'";
+		$sql = "update login set cover_image = '$filename' where userid = '$id'";
 
         if ($conn->query($sql) === TRUE) {
         header("Location:homepage.php");
-        echo "Record updated successfully";
+        echo "Image updated successfully";
 		}else{
 			echo "MySQL Error: ".mysqli_error($conn)."\n<br />";
 		}
@@ -57,8 +54,6 @@ if ($_FILES["mypicture"]["size"] < 20000000){
 }else{
 	echo "File is too large<br>";
 }
-
-
 
 
 

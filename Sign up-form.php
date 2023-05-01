@@ -6,7 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TWITCHER</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js">
+
+    </script>
+
+</script>
     <link rel="stylesheet" href="css/styles.css">
     <script src="index.js"></script>
   </head>
@@ -36,7 +40,11 @@
     </div>
     <div class="form-group col-md-6">
       <label for="inputPassword4">Password</label>
-      <input type="password" class="form-control" name="password" id="inputPassword4" placeholder="Password" required>
+      <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Telephone Number</label>
+      <input type="text" class="form-control" name="telephone" id="telephone" placeholder="phone number" required>
     </div>
   </div>
   <div class="form-group">
@@ -57,11 +65,15 @@
       <input type="text" class="form-control" name="postcode" id="inputZip" required>
     </div>
   </div>
+
+  
  
   <button type="submit" class="btn btn-primary">Sign up</button>
   <a href="login-form.php">Back to Login Page</a>
 </form>
 </div>
+
+
 
  </body>
 

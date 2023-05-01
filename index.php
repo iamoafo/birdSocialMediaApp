@@ -47,8 +47,21 @@ if(isset($_SESSION['id'])){
   </div> 
 
   <div class="user-timeline"> 
+    
+      <?php 
+        $query = mysqli_query($conn,"select * from login where userid='$id';");
 
-    <a href="homepage.php"><?php echo $firstname . " ". $lastname ?> </a>
+        while($row= mysqli_fetch_array($query)){
+          if( $row['profile_pic']){
+            $filepath = $row['profile_pic'];
+            echo "<span><img src='uploads/$filepath'  style= 'width:75px; margin:4px;border-radius:50%;'/></span>";
+            }
+        }
+      
+      
+      
+        echo "<a style='text-decoration:none;'href='homepage.php'>". $firstname . " ". $lastname . "</a>"; 
+        ?>
   </div>
 
     <div class="whats-happening-timeline">
@@ -74,14 +87,22 @@ if(isset($_SESSION['id'])){
 
                          
 
-                            $query = mysqli_query($conn,"select FirstName,LastName,textpost,imagePath,profile_pic,userpost.date,postid from userpost join login on userpost.userid=login.userId order by userpost.id desc");
+                            $query = mysqli_query($conn,"select FirstName,LastName,textpost,imagePath,profile_pic,userpost.date,postid,userpost.userid from userpost join login on userpost.userid=login.userId order by userpost.id desc");
 
                                     while($row= mysqli_fetch_array($query)){
                                       if( $row['profile_pic']){
                                         $filepath = $row['profile_pic'];
                                         echo "<span><img src='uploads/$filepath'  style= 'width:75px; margin:4px;border-radius:50%;'/></span>";
                                         }
-                                          echo "<span style='font-weight:bold;color:blue;'>" . $row['FirstName'] . " ".$row['LastName'] ."</span>";
+
+                                        if($row['FirstName'] == $_SESSION['name'] && $row['LastName'] == $_SESSION['lname']){
+                                          echo "<span style='font-weight:bold;color:blue;'><a style='text-decoration:none;' href='homepage.php?id=". $row['userid']."'>" . $row['FirstName'] . " ".$row['LastName'] ."</a></span>";
+
+                                        }
+                                        else{
+                                          echo "<span style='font-weight:bold;color:blue;'><a style='text-decoration:none;' href='viewUsers.php?id=". $row['userid']."'>" . $row['FirstName'] . " ".$row['LastName'] ."</a></span>";
+
+                                        }
                                           echo "<p>". $row['textpost'] . "</p>";
                                           if( $row['imagePath']){
                                             $filepath = $row['imagePath'];
