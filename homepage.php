@@ -8,6 +8,8 @@ if( $_SESSION['name']== ""){
 
 
        $id = $_SESSION['id'];
+
+       $id = addslashes($id);
 ?>
 
 
@@ -26,7 +28,7 @@ if( $_SESSION['name']== ""){
   <div class="bar">
     <div class="bar-text">
       <a style='text-decoration:none' href="index.php">Twitcher</a>
-    <a href="logout.php" style="float:right">Logout</a>
+    <a href="logout.php" style="float:right;text-decoration:none;">Logout</a>
     </div>
   </div>
   
@@ -67,7 +69,7 @@ if( $_SESSION['name']== ""){
       <div class="header-text"><?php echo $_SESSION['name'] . " ".$_SESSION['lname']?></div>
       <br>
       <div id="menu-buttons"><a style='text-decoration:none' href="index.php"> Timeline </a></div> 
-      <div id="menu-buttons">About</div>
+      <div id="menu-buttons"><a style='text-decoration:none' href="About.php">About</a></div>
       <div id="menu-buttons">Photos</div>
       <hr>
     </div>
@@ -76,16 +78,41 @@ if( $_SESSION['name']== ""){
       <div style="display:flex;">
               <!-- Bio -->
               <div class="bio-bar" style="flex:1;">
-                    <div >
-                    Your Bio
+                    <div>
+                      Your Bio
+                      <hr>
+                      <div class="bio">
+                        <?php 
+                         $query = mysqli_query($conn,"Select Bio from login where userid = '$id'")  ;
+                         while($row= mysqli_fetch_array($query)){
+                               echo $row['Bio'];
 
-                    <div class="bio"></div>
+                                 }
+                        
+                        ?>
+                      </div>
+                      <br/>
+                      <div class="bio">
+                        <h3>Address</h3>
+                        <?php 
+                         $query = mysqli_query($conn,"Select * from login where userid = '$id'")  ;
+                         while($row= mysqli_fetch_array($query)){
+                              echo $row['address']. "<br/>";
+                              echo $row['address2']. "<br/>";
+                              echo $row['city']. "<br/>";
+                              echo $row['postcode']. "<br/>";
+                               
+                                 }
+                        
+                        ?>
+                      </div>
+
                     </div>
                     
               </div>
               <!-- what's happening -->
                  <div style="min-height: 400px;flex:2;padding:10px">
-                      <div style="border:solid thin #aaa;padding:10px;background-color:lightcyan">
+                      <div style="border:solid thin #aaa;padding:10px;background-color:whitesmoke">
                       <form action="textpost.php" method="POST" enctype="multipart/form-data">
                             <textarea name="textpost" placeholder="what's Happening?"></textarea>
                             <input type="text" class="form-control" id="latitude" name="latitude" hidden>
@@ -100,26 +127,27 @@ if( $_SESSION['name']== ""){
                                 <h2>My Posts</h2>
                                   <hr>
                                   <div class='actual-post'>
-                                        <div class='image'>
-                                           
-                                        <img style='width:75px;margin-right:4px'; src='uploads/mk.jpeg'/>
-
-                                        </div>
+                                      
                                             
                                   <?php 
-                                  $query = mysqli_query($conn,"Select * from userpost where userid = '$id' order by id desc")  ;
-                                  while($row= mysqli_fetch_array($query)){
-                                         
+                                    $query = mysqli_query($conn,"select FirstName,LastName,textpost,imagePath,profile_pic,userpost.date,postid,userpost.userid from userpost join login on userpost.userid=login.userId where userpost.userid ='$id' order by userpost.id desc")  ;
+                                    while($row= mysqli_fetch_array($query)){
+                                          echo "<div class='image'>";
+                                          if( $row['profile_pic']){
+                                            $filepath = $row['profile_pic'];
+                                          echo "<img style='width:75px;margin-right:4px;float:left;' src='uploads/$filepath'/>";
+                                          }
+                                          echo "</div>";  
                                           echo "<div style='text-align:left;'>";
                                           echo "<div style='font-weight:bold;color:#405d9b'>" .$_SESSION['name'] . " ".$_SESSION['lname'] ."</div>";
-                                          echo $row['textpost'];
+                                          echo htmlspecialchars($row['textpost']);
                                           if( $row['imagePath']){
                                             $filepath = $row['imagePath'];
-                                        echo "<img style='width:100%;' src='uploads/$filepath'/>";
+                                        echo "<img style='width:100%;' src='images/$filepath'/>";
                                        }
                                           echo "<br/>";
                                           echo "<span style='color:#D3D3D3'>". $row['date'] . "</span>";
-                                          echo "<span style='color:#D3D3D3; float:right;'><a style= 'text-decoration:none;' href='editPost-form.php?id=". $row['postid']."'> Edit</a>.<a style= 'text-decoration:none;' href='delete-form.php?id= ". $row['postid']. "'> delete</a> </span>";
+                                          echo "<span style='color:#D3D3D3; float:right;'><a style= 'text-decoration:none;' href='editPost-form.php?id=". addslashes($row['postid'])."'> Edit</a>.<a style= 'text-decoration:none;' href='delete-form.php?id= ". addslashes($row['postid']). "'> delete</a> </span>";
                                           echo "<hr>";
 
                                           }

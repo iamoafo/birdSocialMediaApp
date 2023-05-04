@@ -46,7 +46,7 @@ else{
                         echo "<hr>";
                         echo "<p style='color:blue'><strong>" .$_SESSION['name'] . " ".$_SESSION['lname'] ."</strong></p>";
                         $row['postid'];
-                        echo "<input type='text' class='form-control' name='editbox' value='". $row['textpost']."' >";
+                        echo "<input type='text' class='form-control' name='editbox' value='". htmlspecialchars($row['textpost'])."' >";
                         echo "<hr>"; 
                      }
 

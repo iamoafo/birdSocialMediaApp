@@ -2,6 +2,8 @@
 session_start();
 include("connection.php");
 
+
+
 if(!empty($_POST['textpost'])){
     $post = $_POST['textpost'];
     $userid = $_SESSION['id'];
@@ -34,9 +36,11 @@ else{
  if(!empty($_POST['timelinePost'])){
     $post = $_POST['timelinePost'];
     $userid = $_SESSION['id'];
+	$latitude =$_POST['latitude'];
+	$longitude= $_POST['longitude'];
     $postid = rand();
     
-    $query = "INSERT INTO userpost(textpost,userid,postid) VALUES ('$post','$userid','$postid')";
+	$query = "INSERT INTO userpost(textpost,userid,postid,latitude,longitude) VALUES ('$post','$userid','$postid',$latitude,$longitude)";
 	
 $result = mysqli_query($conn, $query);
 
@@ -69,7 +73,7 @@ else{
 
 
 
-if ($_FILES["mypicture"]["size"] < 20000000){
+if ($_FILES["mypicture"]["size"]< 20000000){
 	if ($_FILES["mypicture"]["error"] > 0){
 		echo "Error: " . $_FILES["mypicture"]["error"] . "<br />";
 	}else{

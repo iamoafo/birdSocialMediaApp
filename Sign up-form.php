@@ -6,11 +6,54 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TWITCHER</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>  
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>  
+    <script src="CheckPasswordStrength.js"></script>  
+    <link href="CheckPasswordStrength.css" rel="stylesheet" />
+    <script>
+      $(document).ready(function () {  
+    $('#password').keyup(function () {  
+        $('#strengthMessage').html(checkStrength($('#password').val()))  
+    })  
+    function checkStrength(password) {  
+        var strength = 0  
+        if (password.length < 6) {  
+            $('#strengthMessage').removeClass()  
+            $('#strengthMessage').addClass('Short')  
+            return 'Too short'  
+        }  
+        if (password.length > 7) strength += 1  
+        // If password contains both lower and uppercase characters, increase strength value.  
+        if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) strength += 1  
+        // If it has numbers and characters, increase strength value.  
+        if (password.match(/([a-zA-Z])/) && password.match(/([0-9])/)) strength += 1  
+        // If it has one special character, increase strength value.  
+        if (password.match(/([!,%,&,@,#,$,^,*,?,_,~])/)) strength += 1  
+        // If it has two special characters, increase strength value.  
+        if (password.match(/(.*[!,%,&,@,#,$,^,*,?,_,~].*[!,%,&,@,#,$,^,*,?,_,~])/)) strength += 1  
+        // Calculated strength value, we can return messages  
+        // If value is less than 2  
+        if (strength < 2) {  
+            $('#strengthMessage').removeClass()  
+            $('#strengthMessage').addClass('Weak')  
+            return 'Weak'  
+        } else if (strength == 2) {  
+            $('#strengthMessage').removeClass()  
+            $('#strengthMessage').addClass('Good')  
+            return 'Good'  
+        } else {  
+            $('#strengthMessage').removeClass()  
+            $('#strengthMessage').addClass('Strong')  
+            return 'Strong'  
+        }  
+    }  
+});  
+    </script> 
 
-    </script>
 
-</script>
     <link rel="stylesheet" href="css/styles.css">
     <script src="index.js"></script>
   </head>
@@ -35,12 +78,17 @@
       <input type="text" class="form-control" name="lastname" id="LastName4" placeholder="LastName" required>
     </div>
     <div class="form-group col-md-6">
+      <label for="Username4">Username</label>
+      <input type="text" class="form-control" name="Username" id="Username" placeholder="Username" required>
+    </div>
+    <div class="form-group col-md-6">
       <label for="inputEmail4">Email</label>
       <input type="email" class="form-control" name= email id="inputEmail4" placeholder="Email" required>
     </div>
     <div class="form-group col-md-6">
       <label for="inputPassword4">Password</label>
       <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+      <div id="strengthMessage"></div>
     </div>
     <div class="form-group col-md-6">
       <label for="inputPassword4">Telephone Number</label>

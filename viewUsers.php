@@ -13,7 +13,6 @@ if(isset($_GET['id'])){
 ?>
 
 
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -67,83 +66,89 @@ if(isset($_GET['id'])){
        }
       ?>
       <br>
-      <a style='text-decoration:none' href="editProfile.php">Edit Your profile</a>
-      <div class="header-text"><?php    echo $fname . " ".$lname?></div>
+      
+      <div class="header-text"><?php echo $fname . " ".$lname?></div>
       <br>
       <div id="menu-buttons"><a style='text-decoration:none' href="index.php"> Timeline </a></div> 
       <div id="menu-buttons">About</div>
       <div id="menu-buttons">Photos</div>
       <hr>
     </div>
-  </div>
- 
-
- <!-- <div class="whats-happening">
-  <form action="textpost.php" method="POST" enctype="multipart/form-data">
-    <div class="mb-3 mt-3">
-      <textarea name="textpost" placeholder="what's Happening?"></textarea>
-      <input type="text" class="form-control" id="latitude" name="latitude" hidden>
-      <input type="text" class="form-control" id="longitude" name="longitude" hidden>
-
-    </div>
-    <input type="file" name="mypicture">
-    <button id= "post-button" type="submit" class="btn btn-primary">Post</button>
-  </form>
-  </div> -->
-  <div class="posts" style='padding:10px'>
-  <h2>My Posts</h2>
-  <hr>
-  <?php 
-  include_once("connection.php");
   
-  //$id = $_SESSION['id'];
- 
- 
+      <!-- Below cover area -->
+      <div style="display:flex;">
+              <!-- Bio -->
+              <div class="bio-bar" style="flex:1;">
+                    <div >
+                        Your Bio
+                        <hr>
 
-  $query = mysqli_query($conn,"select FirstName,LastName,textpost,imagePath,profile_pic,userpost.date,postid,userpost.userid from userpost join login on userpost.userid=login.userId where userpost.userid ='$id' order by userpost.id desc")  ;
+                      <div class="bio">
+                            <?php 
+                            $query = mysqli_query($conn,"Select Bio from login where userid = '$id'")  ;
+                                while($row= mysqli_fetch_array($query)){
+                                    echo htmlspecialchars($row['Bio']);
 
-		while($row= mysqli_fetch_array($query)){
+                                        }
+                                        ?>
+                      </div>
+                      <div class="bio">
+                        <h3>Address</h3>
+                        <?php 
+                         $query = mysqli_query($conn,"Select * from login where userid = '$id'")  ;
+                         while($row= mysqli_fetch_array($query)){
+                              echo $row['address']. "<br/>";
+                              echo $row['address2']. "<br/>";
+                              echo $row['city']. "<br/>";
+                              echo $row['postcode']. "<br/>";
+                               
+                                 }
+                        
+                        ?>
+                      </div>
+                    </div>
+                    
+              </div>
+
+                        <!-- posts -->
+                        <div class="post-bar">
+                                <h2>My Posts</h2>
+                                  <hr>
+                                  <div class='actual-post'>
+                                    
+                                  <?php 
+                                    $query = mysqli_query($conn,"select FirstName,LastName,textpost,imagePath,profile_pic,userpost.date,postid,userpost.userid from userpost join login on userpost.userid=login.userId where userpost.userid ='$id' order by userpost.id desc")  ;
+                                  while($row= mysqli_fetch_array($query)){
+                                          echo "<div class='image'>";
+                                          if( $row['profile_pic']){
+                                            $filepath = $row['profile_pic'];
+                                          echo "<img style='width:75px;margin-right:4px;float:left;' src='uploads/$filepath'/>";
+                                          }
+                                          echo "</div>";
+                                          echo "<div style='text-align:left;'>";
+                                          echo "<div style='font-weight:bold;color:#405d9b'>" .$row['FirstName'] . " ".$row['LastName'] ."</div>";
+                                          echo htmlspecialchars($row['textpost']);
+                                          if( $row['imagePath']){
+                                            $filepath = $row['imagePath'];
+                                        echo "<img style='width:100%;' src='images/$filepath'/>";
+                                       }
+                                          echo "<br/>";
+                                          echo "<span style='color:#D3D3D3'>". $row['date'] . "</span>";
+                                          echo "<hr>";
+
+                                          }
+                                    ?>
+                                    </div>
+                                  </div>
+                        </div>
             
-      echo "<p style='color:blue'><strong>" .$row['FirstName'] . " ".$row['LastName'] ."</strong></p>";
-      echo "<p>". $row['textpost'] . "</p>";
-      if( $row['imagePath']){
-        $filepath = $row['imagePath'];
-        echo "<img src='images/$filepath'  style='width:100%;'/>";
-        
-        }
-      echo "<span style='color:#D3D3D3'>". $row['date'] . "</span>";
-    //   echo "<span style='color:#D3D3D3; float:right;'><a style= 'text-decoration:none;' href='editPost-form.php?id=". $row['postid']."'> Edit</a>.<a style= 'text-decoration:none;' href='delete-form.php?id= ". $row['postid']. "'> delete</a> </span>";
-      echo "<hr>";
-  }
-
-    
-  
-  ?>
-  
-  </div>
-
-
-<script>
-
-	var latitude;
-  var longitude;
-
-function myFunction(position){
-
-  latitude= position.coords.latitude;
-  longitude=position.coords.longitude;
-
-	document.getElementById('latitude').value = latitude;
-  document.getElementById('longitude').value = longitude;
-
+                  </div>
+             
+        </div>
+    </div>
  
-} 
 
-if (navigator.geolocation) {
-	navigator.geolocation.getCurrentPosition(myFunction);
-}
 
-</script> 
 
 
   </body>

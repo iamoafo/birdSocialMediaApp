@@ -32,6 +32,14 @@
     <button type="submit" class="btn btn-primary">Change Cover photo</button>
   </form>
     </div>
+
+    <div style="background-color:lightcyan;"class="edit-page">
+    <form action="updateBio.php" method="POST">
+        Edit your Bio<br>
+    <textarea name="bio" placeholder="say something..."></textarea>
+    <button style='float:right;' type="submit" class="btn btn-primary">Change Bio</button>
+  </form>
+    </div>
   
 
 

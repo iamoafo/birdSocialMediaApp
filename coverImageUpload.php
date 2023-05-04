@@ -1,5 +1,6 @@
 <?php 
-
+include_once("connection.php");
+session_start(); 
 
 if ($_FILES["coverpicture"]["size"] < 20000000){
 	if ($_FILES["coverpicture"]["error"] > 0){

@@ -3,8 +3,8 @@ session_start();
 include("connection.php");
 
 	
-  if(!empty($_POST['email']) and !empty($_POST['pswd'])){
-  $email = $_POST['email'];
+  if(!empty($_POST['Username']) and !empty($_POST['pswd'])){
+  $username = $_POST['Username'];
   $password = $_POST['pswd'];
   }
   else{
@@ -13,14 +13,14 @@ include("connection.php");
 
   $password = hash("sha1",$password);
 
-	$query = mysqli_query($conn,"Select * from login where email = '$email' and password = '$password'")  ;
+	$query = mysqli_query($conn,"Select * from login where Username = '$username' and password = '$password'")  ;
 
 	$result = mysqli_fetch_array($query);
 
   
     
    if(is_array($result)){
-    $_SESSION[$email]= $result['email'];
+    $_SESSION[$username]= $result['Username'];
     $_SESSION[$password] = $result['password'];
     $_SESSION['name'] =$result['FirstName'];
     $_SESSION['lname'] =$result['LastName'];
@@ -31,7 +31,7 @@ include("connection.php");
     echo '<script> window.location.replace("login-form.php")</script>';
    }
 
-   if(isset($_SESSION[$email])){
+   if(isset($_SESSION[$username])){
     $_SESSION['name'] =$result['FirstName'];
     header("Location:index.php");
    }
