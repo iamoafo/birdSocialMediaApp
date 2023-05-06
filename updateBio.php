@@ -12,15 +12,15 @@ $query = "update login set Bio = '$bio' where userId = '$id'";
 
 
 if ($conn->query($query) === TRUE) {
-	header("Location:homepage.php");
+	header("Location:profile.php");
   } else {
 	echo "Error: " . $sql . "<br>" . $conn->error;
   }
 
 }
 else{
-    header("Location:homepage.php");
-	echo '<script>alert("Post cannot be empty homepage")</script>';
+    header("Location:profile.php");
+	echo '<script>alert("Post cannot be empty profile")</script>';
 }
 
 

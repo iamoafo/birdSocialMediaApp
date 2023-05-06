@@ -68,9 +68,10 @@ if( $_SESSION['name']== ""){
       <a style='text-decoration:none' href="editProfile.php">Edit Your profile</a>
       <div class="header-text"><?php echo $_SESSION['name'] . " ".$_SESSION['lname']?></div>
       <br>
+      <div id="menu-buttons"><a style='text-decoration:none' href="profile.php">Profile</a></div>
       <div id="menu-buttons"><a style='text-decoration:none' href="index.php"> Timeline </a></div> 
       <div id="menu-buttons"><a style='text-decoration:none' href="About.php">About</a></div>
-      <div id="menu-buttons">Photos</div>
+      
       <hr>
     </div>
   
@@ -140,7 +141,7 @@ if( $_SESSION['name']== ""){
                                           echo "</div>";  
                                           echo "<div style='text-align:left;'>";
                                           echo "<div style='font-weight:bold;color:#405d9b'>" .$_SESSION['name'] . " ".$_SESSION['lname'] ."</div>";
-                                          echo htmlspecialchars($row['textpost']);
+                                          echo htmlentities($row['textpost']);
                                           if( $row['imagePath']){
                                             $filepath = $row['imagePath'];
                                         echo "<img style='width:100%;' src='images/$filepath'/>";

@@ -14,7 +14,7 @@ include("connection.php");
 
   $userid = rand();
 	
-$password = hash("sha1",$password);
+$password = password_hash($password,PASSWORD_DEFAULT);
 
 	$query = "INSERT INTO login(userId,FirstName,LastName,Username,email,password,phone_numb,address,address2,city,postcode) VALUES ('$userid','$firstname','$lastname','$username','$email','$password','$telephone','$address','$address2', '$city', '$postcode')";
 	

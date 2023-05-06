@@ -45,7 +45,7 @@ if ($_FILES["coverpicture"]["size"] < 20000000){
 		$sql = "update login set cover_image = '$filename' where userid = '$id'";
 
         if ($conn->query($sql) === TRUE) {
-        header("Location:homepage.php");
+        header("Location:profile.php");
         echo "Image updated successfully";
 		}else{
 			echo "MySQL Error: ".mysqli_error($conn)."\n<br />";

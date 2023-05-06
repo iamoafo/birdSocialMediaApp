@@ -6,8 +6,13 @@ if( $_SESSION['name']== ""){
   header("Location:login-form.php");
 }
 
+       if(isset($_GET['id'])){
+        $id = $_GET['id'];
+       }
+       else{
 
        $id = addslashes( $_SESSION['id']);
+       }
 ?>
 
 
@@ -60,15 +65,27 @@ if( $_SESSION['name']== ""){
              else{
               echo "<img id='profile-pic' src='uploads/placeholderimage.jpeg'/>";
              }
+             $fname = $row['FirstName'];
+             $lname= $row['LastName'];
        }
       ?>
           <br>
             <a style='text-decoration:none' href="editProfile.php">Edit Your profile</a>
-            <div class="header-text"><?php echo $_SESSION['name'] . " ".$_SESSION['lname']?></div>
+            <div class="header-text"><?php echo $fname. " ".$lname?></div>
             <br>
-            <div id="menu-buttons"><a style='text-decoration:none' href="index.php"> Timeline </a></div> 
-            <div id="menu-buttons"><a style='text-decoration:none' href="About.php">About</a></div>
-            <div id="menu-buttons">Photos</div>
+
+            <?php 
+            if($id ==$_SESSION['id']){
+             echo "<div id='menu-buttons'><a style='text-decoration:none' href='profile.php'>Profile</a></div>";
+            }
+            else{
+            echo "<div id='menu-buttons'><a style='text-decoration:none' href='viewUsers.php?id=".$id ."'>Profile</a></div>";
+
+            }
+            ?>
+   
+      <div id="menu-buttons"><a style='text-decoration:none' href="index.php"> Timeline </a></div> 
+      <div id="menu-buttons"><a style='text-decoration:none' href="About.php?id= <?php echo $id ?>">About</a></div>
             <hr>
       </div>
 

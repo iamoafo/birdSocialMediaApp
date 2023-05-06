@@ -47,7 +47,7 @@ if ($_FILES["mypicture"]["size"] < 20000000){
 			
 			mysqli_stmt_close($stmt);
 			
-            echo '<script> window.location.replace("homepage.php")</script>';
+            echo '<script> window.location.replace("profile.php")</script>';
 			echo "File uploaded";
 		}else{
 			echo "MySQL Error: ".mysqli_error($conn)."\n<br />";

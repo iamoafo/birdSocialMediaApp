@@ -3,7 +3,7 @@ include_once("connection.php");
 session_start();
 
 if (isset($_POST['back-button'])) {
-    echo '<script> window.location.replace("homepage.php")</script>';
+    echo '<script> window.location.replace("profile.php")</script>';
 } 
 else{
 
@@ -17,7 +17,7 @@ $sql = "DELETE FROM userpost WHERE postid = $postid";
 
 if (mysqli_query($conn, $sql)) {
   echo '<script>alert("Record deleted successfully")</script>';
-  echo '<script> window.location.replace("homepage.php")</script>';
+  echo '<script> window.location.replace("profile.php")</script>';
  
 
 } else {

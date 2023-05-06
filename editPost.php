@@ -8,7 +8,7 @@ session_start();
 
 
     if (isset($_POST['back-button'])) {
-        echo '<script> window.location.replace("homepage.php")</script>';
+        echo '<script> window.location.replace("profile.php")</script>';
     } 
     else{
 
@@ -27,7 +27,7 @@ session_start();
 $sql = "UPDATE userpost set textpost='$textpost'  WHERE postid = $postid";
 
 if ($conn->query($sql) === TRUE) {
-    header("Location:homepage.php");
+    header("Location:profile.php");
     echo "Record updated successfully";
     }else{
         echo "MySQL Error: ".mysqli_error($conn)."\n<br />";

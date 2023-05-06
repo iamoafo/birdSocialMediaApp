@@ -1,6 +1,6 @@
 <?php 
 include_once("connection.php");
-include_once("secret.php");
+include_once("secrets.php");
 session_start(); 
 
 ?>

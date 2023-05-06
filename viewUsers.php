@@ -69,9 +69,10 @@ if(isset($_GET['id'])){
       
       <div class="header-text"><?php echo $fname . " ".$lname?></div>
       <br>
+
+        <div id="menu-buttons"><a style='text-decoration:none' href="viewUsers.php?id= <?php echo $id ?>">Profile</a></div>
       <div id="menu-buttons"><a style='text-decoration:none' href="index.php"> Timeline </a></div> 
-      <div id="menu-buttons">About</div>
-      <div id="menu-buttons">Photos</div>
+      <div id="menu-buttons"><a style='text-decoration:none' href="About.php?id= <?php echo $id ?>">About</a></div>
       <hr>
     </div>
   

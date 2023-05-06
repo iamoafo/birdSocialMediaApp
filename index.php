@@ -61,7 +61,7 @@ if(isset($_SESSION['id'])){
       
       
         echo "<br/>";
-        echo "<a style='text-decoration:none;'href='homepage.php'>". $firstname . " ". $lastname . "</a>"; 
+        echo "<a style='text-decoration:none;'href='profile.php'>". $firstname . " ". $lastname . "</a>"; 
         ?>
   </div>
 
@@ -100,7 +100,7 @@ if(isset($_SESSION['id'])){
                                         }
                                         if(isset($_SESSION['name'])){
                                             if($row['FirstName'] == $_SESSION['name'] && $row['LastName'] == $_SESSION['lname']){
-                                              echo "<span style='font-weight:bold;color:blue;'><a style='text-decoration:none;' href='homepage.php?id=". $row['userid']."'>" . $row['FirstName'] . " ".$row['LastName'] ."</a></span>";
+                                              echo "<span style='font-weight:bold;color:blue;'><a style='text-decoration:none;' href='profile.php?id=". $row['userid']."'>" . $row['FirstName'] . " ".$row['LastName'] ."</a></span>";
 
                                             }
                                             else{
